@@ -1,0 +1,23 @@
+{:paths ["src" "resources"]
+ :deps {org.clojure/clojure {:mvn/version "1.10.3"}}
+
+ ;;for more examples of aliases see: https://github.com/seancorfield/dot-clojure
+ :aliases
+ {:test {:extra-paths ["test"]
+         :extra-deps {org.clojure/test.check {:mvn/version "RELEASE"}}}
+
+  :runner {:main-opts ["-m" "csv-printer.test-runner"]}
+
+  :run {:main-opts ["-m" "csv-printer.core"]}
+
+  :repl {:extra-deps {nrepl/nrepl {:mvn/version "RELEASE"}
+                      cider/cider-nrepl {:mvn/version "RELEASE"}
+                      reloaded.repl/reloaded.repl {:mvn/version "0.2.4"}}
+         :main-opts ["-m" "nrepl.cmdline" "--interactive" "--middleware" "[\"cider.nrepl/cider-middleware\"]"]}
+
+  :jar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.0.216"}}
+        :exec-fn hf.depstar/jar
+        :exec-args {:jar "build/csv-printer.jar"}}
+
+  :uberjar {:extra-deps {seancorfield/depstar {:mvn/version "RELEASE"}}
+            :main-opts ["-m" "hf.depstar.uberjar" "build/csv-printer.jar" "-C" "-m" "csv-printer.main"]}}}
